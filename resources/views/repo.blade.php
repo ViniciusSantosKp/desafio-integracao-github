@@ -11,15 +11,15 @@
     <h1>Detalhes do Repositório</h1>
 
     <br>
-    <strong><p>Nome:  </strong>{{ $repo['name'] }}</p>
+    <strong><p>Nome:  </strong>{{ Arr::get($repo, 'name') }}</p>
     <br>
-    <strong><p>Descrição:  </strong> {{ $repo['description'] }}</p>
+    <strong><p>Descrição:  </strong> {{ Arr::get($repo, 'description') }}</p>
     <br>
-    <strong><p>Número de Estrelas:  </strong> {{ $repo['stargazers_count'] }}</p>
+    <strong><p>Número de Estrelas:  </strong> {{ Arr::get($repo, 'stargazers_count') }}</p>
     <br>
-    <strong><p>Linguagem:  </strong> {{ $repo['language'] }}</p>
+    <strong><p>Linguagem:  </strong> {{ Arr::get($repo, 'language') }}</p>
     <br>
     <br>
-    <p><a href="{{ $repo['html_url'] }}" target="_blank">Link para o repositório</a></p>
+    <p><a href="{{ Arr::get($repo, 'html_url') }}" target="_blank">Link para o repositório</a></p>
 </body>
 </html>

@@ -8,7 +8,19 @@ class GetUserReposGitHubList
 {
     public function __invoke(string $userName, string $order)
     {
-        $response = ApiGitHubFacade::get("/users/{$userName}/repos");
+        $perPage = 100;
+        $page = 1;
+        $repositories = [];
+
+        do {
+            $response = ApiGitHubFacade::get("/users/{$userName}/repos?page={$page}&per_page={$perPage}");
+            $pageRepositories = $response->json();
+
+            $repositories = array_merge($repositories, $pageRepositories);
+
+            $page++;
+        } while (count($pageRepositories) === $perPage);
+
 
         if ($response->failed()) {
             abort(404, 'Usuário não encontrado');
@@ -16,16 +28,16 @@ class GetUserReposGitHubList
 
         $repos = $response->json();
 
-        usort($repos, function ($a, $b) use ($order) {
+        usort($repos, function ($first, $second) use ($order) {
             if ($order === 'name') {
-                return strcasecmp($a['name'], $b['name']);
+                return strcasecmp($first['name'], $second['name']);
             }
 
             if ($order === 'language') {
-                return strcasecmp($a['language'], $b['language']);
+                return strcasecmp($first['language'], $second['language']);
             }
 
-            return $b['stargazers_count'] - $a['stargazers_count'];
+            return $second['stargazers_count'] - $first['stargazers_count'];
         });
 
         return $repos;

@@ -12,15 +12,15 @@
         <h1>Detalhes do Usuário</h1>
 
         <br>
-        <p><strong>Nome:</strong> {{ $user['name'] }}</p>
-        <p><strong>Número de Seguidores:</strong> {{ $user['followers'] }}</p>
-        <p><strong>Número de Seguidos:</strong> {{ $user['following'] }}</p>
-        <p><strong>Email:</strong> {{ $user['email'] }}</p>
-        <p><strong>Bio:</strong> {{ $user['bio'] }}</p>
+        <p><strong>Nome:</strong> {{ Arr::get($user, 'name') }}</p>
+        <p><strong>Número de Seguidores:</strong> {{ Arr::get($user, 'followers') }}</p>
+        <p><strong>Número de Seguidos:</strong> {{ Arr::get($user, 'following') }}</p>
+        <p><strong>Email:</strong> {{ Arr::get($user, 'email') }}</p>
+        <p><strong>Bio:</strong> {{ Arr::get($user, 'bio') }}</p>
 
         <br>
         <br>
-        <p><img src="{{ $user['avatar_url'] }}" alt="Avatar"></p>
+        <p><img src="{{ Arr::get($user, 'avatar_url') }}" alt="Avatar"></p>
         <br>
 
         @if ($repos)
@@ -49,6 +49,7 @@
                         <tr>
                             <th>Nome</th>
                             <th>Estrelas</th>
+                            <th>Linguagem</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -56,8 +57,9 @@
                         @foreach ($repos as $repo)
                             <tr></tr>
                             <tr>
-                                <td>{{ $repo['name'] }}</td>
-                                <td>{{ $repo['stargazers_count'] }}</td>
+                                <td>{{ Arr::get($repo, 'name') }}</td>
+                                <td>{{ Arr::get($repo, 'stargazers_count') }}</td>
+                                <td>{{ Arr::get($repo, 'language') }}</td>
                                 <td><a href="{{ url("/repo/{$user['login']}/{$repo['name']}") }}" target="_blank">Ver detalhes</a></td>
                             </tr>
                         @endforeach
