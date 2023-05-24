@@ -23,4 +23,4 @@ php artisan serve
 acessar o localhost na porta que o serve utiliza.
 ```
 
-**Acesse [(http://localhost:8000/)]**
+**Acesse [localhost:8000](http://localhost:8000/)**
