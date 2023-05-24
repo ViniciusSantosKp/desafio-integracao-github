@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/app.css') }}" media="screen">
     <title>Dados Usuário</title>
 </head>
@@ -22,60 +22,55 @@
         <br>
         <p><img src="{{ Arr::get($user, 'avatar_url') }}" alt="Avatar"></p>
         <br>
+    </div>
+    <div>
+        <div>
+            <h1>Repositórios do Usuário</h1>
 
-        @if ($repos)
-            <div>
-                <h1>Repositórios do Usuário</h1>
+            <br>
 
-                <br>
+            <form action="{{ url()->current() }}" method="get">
+                @csrf
+                <label for="order">Ordenar por:</label>
+                <select name="order" id="order" onchange="this.form.submit()">
+                    <option value="stars"{{ $order === 'stars' ? ' selected' : '' }}>Estrelas</option>
+                    <option value="name"{{ $order === 'name' ? ' selected' : '' }}>Nome</option>
+                    <option value="language"{{ $order === 'language' ? ' selected' : '' }}>Linguagem</option>
+                </select>
 
-                <form action="{{ url()->current() }}" method="get">
-                    @csrf
-                    <label for="order">Ordenar por:</label>
-                    <select name="order" id="order" onchange="this.form.submit()">
-                        <option value="stars"{{ $order === 'stars' ? ' selected' : '' }}>Estrelas</option>
-                        <option value="name"{{ $order === 'name' ? ' selected' : '' }}>Nome</option>
-                        <option value="language"{{ $order === 'language' ? ' selected' : '' }}>Linguagem</option>
-                    </select>
+                <input type="hidden" name="name" value="{{ $user['login'] }}">
+            </form>
 
-                    <input type="hidden" name="name" value="{{ $user['login'] }}">
-                </form>
+            <br>
+            <br>
 
-                <br>
-                <br>
-
-                <table width="500" style="text-align: center">
-                    <thead>
+            <table width="500" style="text-align: center">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Estrelas</th>
+                        <th>Linguagem</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($repos as $repo)
                         <tr>
-                            <th>Nome</th>
-                            <th>Estrelas</th>
-                            <th>Linguagem</th>
-                            <th></th>
+                            <td>{{ Arr::get($repo, 'name') }}</td>
+                            <td>{{ Arr::get($repo, 'stargazers_count') }}</td>
+                            <td>{{ Arr::get($repo, 'language') }}</td>
+                            <td><a href="{{ url("/repo/{$user['login']}/{$repo['name']}") }}" target="_blank">Ver detalhes</a></td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($repos as $repo)
-                            <tr></tr>
-                            <tr>
-                                <td>{{ Arr::get($repo, 'name') }}</td>
-                                <td>{{ Arr::get($repo, 'stargazers_count') }}</td>
-                                <td>{{ Arr::get($repo, 'language') }}</td>
-                                <td><a href="{{ url("/repo/{$user['login']}/{$repo['name']}") }}" target="_blank">Ver detalhes</a></td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <br>
-            <br>
-
-        @else
-            <div>
-                <h4>Usuário não possui repositórios</h1>
-            </div>
-
-        @endif
-
+                    @empty
+                        <tr>
+                            <td colspan="3">Nenhum repositório encontrado</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <br>
     </div>
 </body>
 </html>
