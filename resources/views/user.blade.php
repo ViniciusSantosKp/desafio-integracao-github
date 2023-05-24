@@ -9,6 +9,10 @@
 </head>
 <body>
     <div>
+        <a href="{{ route('index')}}"><button>Nova consulta</button></a>
+
+        <br>
+        <br>
         <h1>Detalhes do Usuário</h1>
 
         <br>

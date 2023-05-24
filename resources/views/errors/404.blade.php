@@ -9,5 +9,8 @@
 </head>
 <body>
     <p>Usuário não localizado</p>
+
+    <br>
+    <a href="{{ route('index')}}"><button>Nova consulta</button></a
 </body>
 </html>

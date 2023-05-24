@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 
 Route::get('/user', [ApiGitHubController::class, 'getUser'])->name('search-user');
 Route::get('/repo/{owner}/{repo}', [ApiGitHubController::class, 'getRepo'])->name('get.repo');
