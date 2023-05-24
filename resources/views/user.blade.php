@@ -64,7 +64,8 @@
                     </tbody>
                 </table>
             </div>
-
+            <br>
+            <br>
 
         @else
             <div>
