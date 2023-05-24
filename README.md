@@ -14,13 +14,10 @@ Não foi utilizado frameworks de design ou front-end (vue.js, react). O intuito 
 **Clone o repositório no diretório à sua escolha**
 ```
 git clone git@github.com:ViniciusSantosKp/desafio-integracao-github.git
-```
-
-**Run `php artisan serve`**
-```
+composer install
+cp .env.example .env
+php artisan key:generate
 php artisan serve
 
 acessar o localhost na porta que o serve utiliza.
 ```
-
-**Acesse [localhost:8000](http://localhost:8000/)**
