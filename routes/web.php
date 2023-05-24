@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiGitHubController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/user', [ApiGitHubController::class, 'getUser'])->name('search-user');
+Route::get('/repo/{owner}/{repo}', [ApiGitHubController::class, 'getRepo'])->name('get.repo');
